@@ -6,12 +6,12 @@ import com.orm.SugarRecord;
  * Created by jayadeep on 10/22/16.
  */
 public class User extends SugarRecord{
-    String name;
-    int year;
+    public String name;
+    int year; //joining year. Set 0 for not applicable
     String department;
     String address;
     String station;
-    String mobile;
+    long mobile;
     String email;
     String blood;
     int weight;
