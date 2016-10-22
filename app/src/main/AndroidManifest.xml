@@ -16,7 +16,7 @@
         <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.juggleclouds.bloodbankcet" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label="Bloodbank Home"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

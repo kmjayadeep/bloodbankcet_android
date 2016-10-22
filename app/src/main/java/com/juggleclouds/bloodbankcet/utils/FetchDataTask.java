@@ -1,4 +1,4 @@
-package com.juggleclouds.bloodbankcet;
+package com.juggleclouds.bloodbankcet.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;

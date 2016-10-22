@@ -2,7 +2,6 @@ package com.juggleclouds.bloodbankcet;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -14,22 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.juggleclouds.bloodbankcet.classes.User;
-import com.orm.SugarApp;
-import com.orm.SugarContext;
-import com.orm.SugarRecord;
-
-import org.json.JSONObject;
-
-import java.util.List;
+import com.juggleclouds.bloodbankcet.search.SearchDialog;
+import com.juggleclouds.bloodbankcet.utils.FetchDataTask;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,13 +27,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,6 +43,8 @@ public class MainActivity extends AppCompatActivity
             fetchData();
         }else
             Log.i("got users",countUsers+"");
+
+        fab.setOnClickListener(new FabListener());
     }
 
     private void fetchData() {
@@ -124,5 +106,13 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private class FabListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            SearchDialog dialog = new SearchDialog();
+            dialog.show(getSupportFragmentManager(),"search dialog");
+        }
     }
 }
