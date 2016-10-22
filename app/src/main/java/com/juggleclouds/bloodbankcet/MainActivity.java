@@ -23,6 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.juggleclouds.bloodbankcet.classes.User;
+import com.orm.SugarApp;
+import com.orm.SugarContext;
+import com.orm.SugarRecord;
 
 import org.json.JSONObject;
 
@@ -37,7 +40,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,23 +58,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        
+        long countUsers = User.count(User.class);
+        if (countUsers == 0) {
+            fetchData();
+        }else
+            Log.i("got users",countUsers+"");
+    }
 
-        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    User user = dataSnapshot1.getValue(User.class);
-                    Log.i("got",user.name+" "+dataSnapshot1.getKey());
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+    private void fetchData() {
+        new FetchDataTask(this).execute();
     }
 
     @Override

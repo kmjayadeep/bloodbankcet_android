@@ -7,14 +7,14 @@ import com.orm.SugarRecord;
  */
 public class User extends SugarRecord{
     public String name;
-    int year; //joining year. Set 0 for not applicable
-    String department;
-    String address;
-    String station;
-    long mobile;
-    String email;
-    String blood;
-    int weight;
-    boolean willing;
-    String comments;
+    public int year; //joining year. Set 0 for not applicable
+    public String department;
+    public String address;
+    public String station;
+    public long mobile;
+    public String email;
+    public String blood;
+    public int weight;
+    public boolean willing;
+    public String comments;
 }
