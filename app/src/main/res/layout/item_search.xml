@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="5dp">
 
-</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name Here"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:padding="5dp"
+        android:id="@+id/name"
+        android:layout_toLeftOf="@+id/department"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CSE!"
+        android:layout_alignParentRight="true"
+        android:padding="5dp"
+        android:id="@+id/department"/>
+
+    <TextView
+        android:layout_below="@id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Comments"
+        android:textColor="@color/colorAccent"
+        android:id="@+id/comments"
+        android:layout_toRightOf="@+id/station"
+        android:gravity="right"
+        android:padding="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:padding="5dp"
+        android:layout_below="@id/name"
+        android:id="@+id/station"
+        android:text="Trivandrum"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

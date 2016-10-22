@@ -5,13 +5,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.juggleclouds.bloodbankcet.R;
 import com.juggleclouds.bloodbankcet.classes.User;
+import com.orm.query.Condition;
+import com.orm.query.Select;
 
 import java.util.List;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+
+    ListView lvSearchResult;
+    List<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,16 +27,24 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         String station = getIntent().getStringExtra("station");
         String bloodGroup = getIntent().getStringExtra("blood");
-        new SearchTask(station,bloodGroup).execute();
-        if(getSupportActionBar()!=null)
+        new SearchTask(station, bloodGroup).execute();
+        if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        lvSearchResult = (ListView) findViewById(R.id.lvSearch);
+        lvSearchResult.setOnItemClickListener(this);
     }
 
-    class SearchTask extends AsyncTask<Void,Void,List<User>>{
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        User user = userList.get(i);
+        Log.i("Selected", user.toString());
+    }
 
-        String station,bloodGroup;
+    class SearchTask extends AsyncTask<Void, Void, List<User>> {
 
-        SearchTask(String s,String b){
+        String station, bloodGroup;
+
+        SearchTask(String s, String b) {
             station = s;
             bloodGroup = b;
         }
@@ -36,16 +52,25 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected List<User> doInBackground(Void... voids) {
             List<User> users = null;
-            if(station.equals(""))
-                users = User.find(User.class,"blood = ?",bloodGroup);
+            Select<User> selector = Select.from(User.class);
+            if (station.equals(""))
+                selector = selector
+                        .where(Condition.prop("blood").eq(bloodGroup));
             else
-                users = User.find(User.class,"blood = ? and station= ?",bloodGroup,station);
+                selector = selector
+                        .where(Condition.prop("blood").eq(bloodGroup), Condition.prop("station").eq(station));
+
+            users = selector
+                    .orderBy("department")
+                    .list();
             return users;
         }
 
         @Override
         protected void onPostExecute(List<User> users) {
-            Log.i("search",users.toString());
+            SearchListAdapter searchListAdapter = new SearchListAdapter(SearchActivity.this, users);
+            userList = users;
+            lvSearchResult.setAdapter(searchListAdapter);
         }
     }
 
