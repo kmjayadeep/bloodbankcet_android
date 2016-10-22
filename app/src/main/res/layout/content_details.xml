@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.juggleclouds.bloodbankcet.search.DetailsActivity"
+    tools:showIn="@layout/activity_details">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/bloodgroup"
+        android:padding="10dp"
+        android:text="Name here"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/bloodgroup"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="B+"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/station"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_toLeftOf="@id/bloodgroup"
+        android:paddingLeft="10dp"
+        android:text="Station" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/station"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/weight"
+        android:paddingLeft="10dp"
+        android:text="Address" />
+
+    <TextView
+        android:id="@+id/department_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/weight"
+        android:paddingLeft="10dp"
+        android:text="CSE 2017" />
+
+
+    <TextView
+        android:id="@+id/weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/bloodgroup"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:text="Weight : 60kg" />
+
+    <TextView
+        android:id="@+id/mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/department_year"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/tv_mobile"
+        android:autoLink="phone"
+        android:paddingLeft="10dp"
+        android:text="9567134987" />
+
+    <TextView
+        android:id="@+id/tv_mobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/department_year"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:text="Mobile"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mobile"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/tv_mobile"
+        android:autoLink="email"
+        android:paddingLeft="10dp"
+        android:text="mail@example.com" />
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_mobile"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:text="Email"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_email"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Comments here" />
+
+</RelativeLayout>

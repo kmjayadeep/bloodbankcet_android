@@ -31,9 +31,11 @@
         </activity>
         <activity
             android:name=".search.SearchActivity"
-            android:label="Search Results">
-            
-        </activity>
+            android:label="Search Results"></activity>
+        <activity
+            android:name=".search.DetailsActivity"
+            android:label="@string/title_activity_details"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

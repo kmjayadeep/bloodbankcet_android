@@ -1,5 +1,6 @@
 package com.juggleclouds.bloodbankcet.search;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +39,9 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         User user = userList.get(i);
         Log.i("Selected", user.toString());
+        Intent intent = new Intent(this, DetailsActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
     }
 
     class SearchTask extends AsyncTask<Void, Void, List<User>> {
