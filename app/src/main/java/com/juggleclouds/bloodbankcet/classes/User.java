@@ -17,4 +17,9 @@ public class User extends SugarRecord{
     public int weight;
     public boolean willing;
     public String comments;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

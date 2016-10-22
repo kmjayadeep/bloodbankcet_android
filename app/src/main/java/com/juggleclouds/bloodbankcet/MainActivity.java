@@ -1,5 +1,6 @@
 package com.juggleclouds.bloodbankcet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
@@ -14,11 +15,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.juggleclouds.bloodbankcet.classes.User;
+import com.juggleclouds.bloodbankcet.search.SearchActivity;
 import com.juggleclouds.bloodbankcet.search.SearchDialog;
 import com.juggleclouds.bloodbankcet.utils.FetchDataTask;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,SearchDialog.ActionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +108,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onSearch(String station, String bloodGroup) {
+        Log.i("searching",station+" "+bloodGroup);
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("station",station);
+        intent.putExtra("blood",bloodGroup);
+        startActivity(intent);
     }
 
     private class FabListener implements View.OnClickListener {

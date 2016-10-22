@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Station (optional)"
+        android:id="@+id/station"
         android:layout_marginTop="30dp">
         <EditText
             android:layout_width="match_parent"
@@ -44,6 +45,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Search"
+        android:id="@+id/search"
         android:textColor="@color/colorTextSecondary"
         android:background="@color/colorAccent"/>
 
