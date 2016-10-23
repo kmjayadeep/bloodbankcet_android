@@ -23,11 +23,12 @@ import com.juggleclouds.bloodbankcet.classes.User;
 import com.juggleclouds.bloodbankcet.search.SearchActivity;
 import com.juggleclouds.bloodbankcet.search.SearchDialog;
 import com.juggleclouds.bloodbankcet.utils.FetchDataTask;
+import com.juggleclouds.bloodbankcet.utils.PushDataTask;
 
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SearchDialog.ActionListener, FetchDataTask.OnTaskFinishedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SearchDialog.ActionListener, FetchDataTask.OnTaskFinishedListener, PushDataTask.OnTaskFinishedListener {
 
     TextView tvCount, tvUpSync, tvDownSync;
     Button bUpSync, bDownSync, bRegister;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity
         if (lastDownSync == 0)
             tvDownSync.setText("Last Downsync : Never");
         else
-            tvDownSync.setText("Last Downsync : " + DateFormat.format("yyyy-MM-dd hh:mm:ss", new Date(lastDownSync)));
+            tvDownSync.setText("Last Downsync : " + DateFormat.format("yyyy-MM-dd hh:mm", new Date(lastDownSync)));
         if (lastUpSync == 0)
             tvUpSync.setText("Last Upsync : Never");
         else
@@ -158,6 +159,11 @@ public class MainActivity extends AppCompatActivity
         updateValues();
     }
 
+    @Override
+    public void onUpSyncFinished() {
+        updateValues();
+    }
+
     private class FabListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -172,7 +178,7 @@ public class MainActivity extends AppCompatActivity
             if (view.getId() == R.id.newuser) {
                 Toast.makeText(MainActivity.this, "Not implemented yet", Toast.LENGTH_SHORT).show();
             } else if (view.getId() == R.id.upsync) {
-                Toast.makeText(MainActivity.this, "Not implemented yet", Toast.LENGTH_SHORT).show();
+                new PushDataTask(MainActivity.this).execute();
             } else if (view.getId() == R.id.downsync) {
                 User.deleteAll(User.class);
                 new FetchDataTask(MainActivity.this).execute();
