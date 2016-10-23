@@ -2,6 +2,7 @@ package com.juggleclouds.bloodbankcet.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -11,17 +12,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.juggleclouds.bloodbankcet.Global;
 import com.juggleclouds.bloodbankcet.classes.User;
+
+import java.util.Date;
 
 /**
  * Created by jayadeep on 10/22/16.
  */
-public class FetchDataTask{
+public class FetchDataTask {
 
     ProgressDialog dialog;
     Context context;
 
-    public FetchDataTask(Context context){
+    public FetchDataTask(Context context) {
         dialog = new ProgressDialog(context);
         this.context = context;
         dialog.setIndeterminate(true);
@@ -30,7 +34,7 @@ public class FetchDataTask{
         dialog.setCancelable(false);
     }
 
-    public void execute(){
+    public void execute() {
         dialog.show();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -43,7 +47,7 @@ public class FetchDataTask{
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 dialog.dismiss();
-                Toast.makeText(context,"Unable to fetch data from server",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Unable to fetch data from server", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -52,7 +56,7 @@ public class FetchDataTask{
         new SaveDataTask(dataSnapshot).execute();
     }
 
-    class SaveDataTask extends AsyncTask<Void,Void,Void>{
+    class SaveDataTask extends AsyncTask<Void, Void, Void> {
 
         DataSnapshot dataSnapshot;
         ProgressDialog dialog;
@@ -63,7 +67,7 @@ public class FetchDataTask{
             dialog.show();
         }
 
-        public SaveDataTask(DataSnapshot snapshot){
+        public SaveDataTask(DataSnapshot snapshot) {
             dataSnapshot = snapshot;
             dialog = new ProgressDialog(context);
             dialog.setTitle("Please Wait");
@@ -85,9 +89,20 @@ public class FetchDataTask{
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             dialog.dismiss();
-            Toast.makeText(context,"Data saved",Toast.LENGTH_SHORT).show();
+            SharedPreferences sharedPreferences = context.getSharedPreferences(Global.sharedPreferences, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putLong("lastDownSync", new Date().getTime());
+            editor.commit();
+            Toast.makeText(context, "Data saved", Toast.LENGTH_SHORT).show();
+            if (context instanceof OnTaskFinishedListener)
+                ((OnTaskFinishedListener) context).onDownSyncFinished();
         }
     }
+
+    public interface OnTaskFinishedListener {
+        void onDownSyncFinished();
+    }
+
 }
 
 
