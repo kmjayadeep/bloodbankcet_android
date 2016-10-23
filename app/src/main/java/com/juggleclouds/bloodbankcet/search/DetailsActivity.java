@@ -3,20 +3,26 @@ package com.juggleclouds.bloodbankcet.search;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.juggleclouds.bloodbankcet.R;
 import com.juggleclouds.bloodbankcet.classes.User;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     User user;
     TextView tvName, tvBloodGroup, tvAddress, tvStation, tvDept, tvMobile, tvEmail, tvWeight, tvComments;
+    TextInputLayout tilComments;
+    Button bSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,7 @@ public class DetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         user = (User) getIntent().getSerializableExtra("user");
+        user.setId(getIntent().getLongExtra("user_id", 0));
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         tvName = (TextView) findViewById(R.id.name);
         tvStation = (TextView) findViewById(R.id.station);
@@ -37,6 +44,8 @@ public class DetailsActivity extends AppCompatActivity {
         tvMobile = (TextView) findViewById(R.id.mobile);
         tvWeight = (TextView) findViewById(R.id.weight);
         tvComments = (TextView) findViewById(R.id.comments);
+        tilComments = (TextInputLayout) findViewById(R.id.input_comments);
+        bSave = (Button) findViewById(R.id.save);
         tvName.setText(user.name);
         tvStation.setText(user.station);
         tvAddress.setText(user.address);
@@ -49,11 +58,39 @@ public class DetailsActivity extends AppCompatActivity {
         tvEmail.setText(user.email);
         tvWeight.setText(user.weight + " Kg");
         tvComments.setText(user.comments);
+        fab.setOnClickListener(this);
+        bSave.setOnClickListener(this);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         this.finish();
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.save) {
+            String comments = "";
+            if (tilComments.getEditText() != null)
+                comments = tilComments.getEditText().getText().toString();
+            Log.i("comments", comments);
+            user.comments = comments;
+            user.save();
+            tvComments.setText(user.comments);
+            tilComments.setVisibility(View.GONE);
+            bSave.setVisibility(View.GONE);
+            Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+        } else if (view.getId() == R.id.fab) {
+            if (tilComments.getVisibility() == View.GONE) {
+                tilComments.setVisibility(View.VISIBLE);
+                bSave.setVisibility(View.VISIBLE);
+                tilComments.getEditText().setText(user.comments);
+            } else {
+                tilComments.setVisibility(View.GONE);
+                bSave.setVisibility(View.GONE);
+                tvComments.setText(user.comments);
+            }
+        }
     }
 }

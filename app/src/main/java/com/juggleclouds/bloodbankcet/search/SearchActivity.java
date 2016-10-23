@@ -41,6 +41,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         Log.i("Selected", user.toString());
         Intent intent = new Intent(this, DetailsActivity.class);
         intent.putExtra("user", user);
+        intent.putExtra("user_id", user.getId());
         startActivity(intent);
     }
 
@@ -65,7 +66,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                         .where(Condition.prop("blood").eq(bloodGroup), Condition.prop("station").eq(station));
 
             users = selector
-                    .orderBy("department")
+                    .orderBy("department,year")
                     .list();
             return users;
         }

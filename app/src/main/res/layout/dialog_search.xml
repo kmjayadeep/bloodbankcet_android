@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="20dp">
 
     <fr.ganfra.materialspinner.MaterialSpinner
         android:id="@+id/bloodgroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:ms_multiline="false"
-        app:ms_hint="Blood Group"
-        app:ms_enableFloatingLabel="true"
-        app:ms_enableErrorLabel="true"
-        app:ms_floatingLabelText="Blood Group"
-        app:ms_baseColor="@color/colorAccent"
-        app:ms_highlightColor="@color/colorAccent"
-        app:ms_errorColor="@color/colorPrimaryDark"
-        app:ms_thickness="2dp"
-        app:ms_hintColor="@color/colorAccent"
+        app:ms_alignLabels="false"
         app:ms_arrowColor="@color/colorAccent"
         app:ms_arrowSize="16dp"
-        app:ms_alignLabels="false"
-        app:ms_floatingLabelColor="@color/colorAccent"/>
+        app:ms_baseColor="@color/colorAccent"
+        app:ms_enableErrorLabel="true"
+        app:ms_enableFloatingLabel="true"
+        app:ms_errorColor="@color/colorPrimaryDark"
+        app:ms_floatingLabelColor="@color/colorAccent"
+        app:ms_floatingLabelText="Blood Group"
+        app:ms_highlightColor="@color/colorAccent"
+        app:ms_hint="Blood Group"
+        app:ms_hintColor="@color/colorAccent"
+        app:ms_multiline="false"
+        app:ms_thickness="2dp" />
 
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/station"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Station (optional)"
-        android:id="@+id/station"
-        android:layout_marginTop="30dp">
-        <EditText
+        android:layout_marginTop="30dp"
+        android:hint="Station (optional)">
+
+        <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
-            android:hint="Station"
+            android:layout_height="wrap_content"
             android:maxLines="1"
-            android:singleLine="true"
-            android:layout_height="wrap_content" />
+            android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:layout_marginTop="20dp"
+        android:id="@+id/search"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorAccent"
         android:text="Search"
-        android:id="@+id/search"
-        android:textColor="@color/colorTextSecondary"
-        android:background="@color/colorAccent"/>
+        android:textColor="@color/colorTextSecondary" />
 
 </LinearLayout>

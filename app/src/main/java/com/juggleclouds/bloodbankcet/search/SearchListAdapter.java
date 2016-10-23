@@ -50,8 +50,10 @@ public class SearchListAdapter extends BaseAdapter {
         TextView tvDepartment = (TextView) view.findViewById(R.id.department);
         tvName.setText(user.name);
         tvComments.setText(user.comments);
-        if(user.year!=0)
-            tvDepartment.setText(user.department+" "+user.year);
+        if (user.year != 0)
+            tvDepartment.setText(user.department + " " + user.year);
+        else
+            tvDepartment.setText("");
         return view;
     }
 }
