@@ -66,7 +66,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                         .where(Condition.prop("blood").eq(bloodGroup), Condition.prop("station").eq(station));
 
             users = selector
-                    .orderBy("department,year")
+                    .orderBy("department,year,name")
                     .list();
             return users;
         }

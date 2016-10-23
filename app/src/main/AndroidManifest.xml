@@ -5,7 +5,7 @@
     <application
         android:name="com.orm.SugarApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/blood"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -21,7 +21,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="Bloodbank Home"
+            android:label="Bloodbank"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,11 +31,11 @@
         </activity>
         <activity
             android:name=".search.SearchActivity"
-            android:label="Search Results"></activity>
+            android:label="Search Results" />
         <activity
             android:name=".search.DetailsActivity"
-            android:label="@string/title_activity_details"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="User Details"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
