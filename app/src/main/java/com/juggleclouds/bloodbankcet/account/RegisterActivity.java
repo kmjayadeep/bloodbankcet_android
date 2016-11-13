@@ -107,6 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
                 } else
                     user.year = Integer.parseInt(tilYear.getEditText().getText().toString());
                 user.willing = true;
+                user.save();
                 Toast.makeText(RegisterActivity.this, "Registered", Toast.LENGTH_SHORT).show();
                 Log.i("user", new Gson().toJson(user));
             }
