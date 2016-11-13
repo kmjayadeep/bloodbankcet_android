@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.juggleclouds.bloodbankcet.account.RegisterActivity;
 import com.juggleclouds.bloodbankcet.classes.User;
 import com.juggleclouds.bloodbankcet.search.SearchActivity;
 import com.juggleclouds.bloodbankcet.search.SearchDialog;
@@ -176,7 +177,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onClick(View view) {
             if (view.getId() == R.id.newuser) {
-                Toast.makeText(MainActivity.this, "Not implemented yet", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             } else if (view.getId() == R.id.upsync) {
                 new PushDataTask(MainActivity.this).execute();
             } else if (view.getId() == R.id.downsync) {

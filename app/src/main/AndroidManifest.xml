@@ -36,6 +36,9 @@
             android:name=".search.DetailsActivity"
             android:label="User Details"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".account.RegisterActivity"
+            android:label="Register" />
     </application>
 
 </manifest>
