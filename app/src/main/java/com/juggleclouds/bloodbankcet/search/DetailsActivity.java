@@ -17,11 +17,13 @@ import android.widget.Toast;
 import com.juggleclouds.bloodbankcet.R;
 import com.juggleclouds.bloodbankcet.classes.User;
 
+import java.util.Date;
+
 public class DetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     User user;
-    TextView tvName, tvBloodGroup, tvAddress, tvStation, tvDept, tvMobile, tvEmail, tvWeight, tvComments;
-    TextInputLayout tilComments;
+    TextView tvName, tvBloodGroup, tvAddress, tvStation, tvDept, tvMobile, tvEmail, tvWeight, tvComments, tvDonated;
+    TextInputLayout tilComments, tilDonated;
     Button bSave;
 
     @Override
@@ -44,6 +46,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         tvMobile = (TextView) findViewById(R.id.mobile);
         tvWeight = (TextView) findViewById(R.id.weight);
         tvComments = (TextView) findViewById(R.id.comments);
+        tvDonated = (TextView) findViewById(R.id.donated);
+        tilDonated = (TextInputLayout) findViewById(R.id.input_donated);
         tilComments = (TextInputLayout) findViewById(R.id.input_comments);
         bSave = (Button) findViewById(R.id.save);
         tvName.setText(user.name);
@@ -58,6 +62,11 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         tvEmail.setText(user.email);
         tvWeight.setText(user.weight + " Kg");
         tvComments.setText(user.comments);
+        if (user.donated > 0) {
+            String date = new Date(user.donated).toString();
+            tvDonated.setText(date);
+        } else
+            tvDonated.setText("Never");
         fab.setOnClickListener(this);
         bSave.setOnClickListener(this);
     }
@@ -76,20 +85,29 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 comments = tilComments.getEditText().getText().toString();
             Log.i("comments", comments);
             user.comments = comments;
+//            user.donated = put date here
             user.save();
             tvComments.setText(user.comments);
             tilComments.setVisibility(View.GONE);
+            tilDonated.setVisibility(View.GONE);
             bSave.setVisibility(View.GONE);
             Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
         } else if (view.getId() == R.id.fab) {
             if (tilComments.getVisibility() == View.GONE) {
                 tilComments.setVisibility(View.VISIBLE);
+                tilDonated.setVisibility(View.VISIBLE);
                 bSave.setVisibility(View.VISIBLE);
                 tilComments.getEditText().setText(user.comments);
             } else {
                 tilComments.setVisibility(View.GONE);
+                tilDonated.setVisibility(View.GONE);
                 bSave.setVisibility(View.GONE);
                 tvComments.setText(user.comments);
+                if (user.donated > 0) {
+                    String date = new Date(user.donated).toString();
+                    tvDonated.setText(date);
+                } else
+                    tvDonated.setText("Never");
             }
         }
     }
