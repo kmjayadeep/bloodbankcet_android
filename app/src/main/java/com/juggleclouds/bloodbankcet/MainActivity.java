@@ -179,9 +179,13 @@ public class MainActivity extends AppCompatActivity
             if (view.getId() == R.id.newuser) {
                 startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             } else if (view.getId() == R.id.upsync) {
+                long count = User.count(User.class);
+                if (count == 0) {
+                    Toast.makeText(MainActivity.this, "No data to sync", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 new PushDataTask(MainActivity.this).execute();
             } else if (view.getId() == R.id.downsync) {
-                User.deleteAll(User.class);
                 new FetchDataTask(MainActivity.this).execute();
             }
         }

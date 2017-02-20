@@ -77,6 +77,7 @@ public class FetchDataTask {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            User.deleteAll(User.class);
             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                 User user = dataSnapshot1.getValue(User.class);
                 Log.i("got", user.name + " " + dataSnapshot1.getKey());
