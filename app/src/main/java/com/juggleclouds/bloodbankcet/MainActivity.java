@@ -26,7 +26,10 @@ import com.juggleclouds.bloodbankcet.search.SearchDialog;
 import com.juggleclouds.bloodbankcet.utils.FetchDataTask;
 import com.juggleclouds.bloodbankcet.utils.PushDataTask;
 
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SearchDialog.ActionListener, FetchDataTask.OnTaskFinishedListener, PushDataTask.OnTaskFinishedListener {
@@ -76,17 +79,21 @@ public class MainActivity extends AppCompatActivity
         long count = User.count(User.class);
         SharedPreferences sharedPreferences = getSharedPreferences(Global.sharedPreferences, MODE_PRIVATE);
         tvCount.setText("Total Registered Users : " + count);
+        SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy hh:mm a");
+        DateFormatSymbols symbols = new DateFormatSymbols(Locale.getDefault());
+        symbols.setAmPmStrings(new String[]{"AM", "PM"});
+        format.setDateFormatSymbols(symbols);
         long lastDownSync = sharedPreferences.getLong("lastDownSync", 0);
         long lastUpSync = sharedPreferences.getLong("lastUpSync", 0);
 
         if (lastDownSync == 0)
             tvDownSync.setText("Last Downsync : Never");
         else
-            tvDownSync.setText("Last Downsync : " + DateFormat.format("yyyy-MM-dd hh:mm", new Date(lastDownSync)));
+            tvDownSync.setText("Last Downsync : " + format.format(new Date(lastDownSync)));
         if (lastUpSync == 0)
             tvUpSync.setText("Last Upsync : Never");
         else
-            tvUpSync.setText("Last Upsync: " + DateFormat.format("yyyy-MM-dd hh:mm", new Date(lastUpSync)));
+            tvUpSync.setText("Last Upsync: " + format.format(new Date(lastUpSync)));
     }
 
     @Override

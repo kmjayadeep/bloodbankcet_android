@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     Button bSave;
     Calendar calDonated;
     SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
+    LinearLayout editLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
         tilDonated.getEditText().setKeyListener(null);
+        editLayout = (LinearLayout) findViewById(R.id.llEdit);
+        editLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -110,23 +114,26 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             tvComments.setText(user.comments);
             tvDonated.setText(format.format(new Date(user.donated)));
             tilComments.getEditText().requestFocus();
-            tilComments.setVisibility(View.GONE);
-            tilDonated.setVisibility(View.GONE);
-            bSave.setVisibility(View.GONE);
+//            tilComments.setVisibility(View.GONE);
+//            tilDonated.setVisibility(View.GONE);
+            editLayout.setVisibility(View.GONE);
+//            bSave.setVisibility(View.GONE);
             Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
         } else if (view.getId() == R.id.fab) {
-            if (tilComments.getVisibility() == View.GONE) {
-                tilComments.setVisibility(View.VISIBLE);
-                tilDonated.setVisibility(View.VISIBLE);
-                bSave.setVisibility(View.VISIBLE);
+            if (editLayout.getVisibility() == View.GONE) {
+//                tilComments.setVisibility(View.VISIBLE);
+//                tilDonated.setVisibility(View.VISIBLE);
+                editLayout.setVisibility(View.VISIBLE);
+//                bSave.setVisibility(View.VISIBLE);
                 tilComments.getEditText().setText(user.comments);
                 if (user.donated > 0)
                     tilDonated.getEditText().setText(format.format(new Date(user.donated)));
                 calDonated = null;
             } else {
-                tilComments.setVisibility(View.GONE);
-                tilDonated.setVisibility(View.GONE);
-                bSave.setVisibility(View.GONE);
+//                tilComments.setVisibility(View.GONE);
+//                tilDonated.setVisibility(View.GONE);
+                editLayout.setVisibility(View.GONE);
+//                bSave.setVisibility(View.GONE);
                 tvComments.setText(user.comments);
                 if (user.donated > 0) {
                     String date = new Date(user.donated).toString();

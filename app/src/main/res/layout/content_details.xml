@@ -138,53 +138,64 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_donated"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:text="Comments here" />
 
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_donated"
+    <LinearLayout
+        android:id="@+id/llEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/comments"
         android:layout_marginTop="10dp"
-        android:hint="Last Donated"
-        android:padding="10dp"
-        android:visibility="gone">
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
-        <android.support.design.widget.TextInputEditText
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_donated"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/comments"
+            android:hint="Last Donated"
+            android:padding="8dp">
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_comments"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/input_donated"
-        android:layout_marginTop="10dp"
-        android:hint="Enter comments"
-        android:padding="10dp"
-        android:visibility="gone">
+        </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputEditText
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_comments"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_donated"
+            android:layout_marginTop="5dp"
+            android:hint="Enter comments"
+            android:padding="8dp">
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/input_comments"
-        android:layout_marginRight="10dp"
-        android:background="@color/colorAccent"
-        android:text="Save"
-        android:textColor="@color/colorTextSecondary"
-        android:visibility="gone" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/input_comments"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
+            android:text="Save"
+            android:textColor="@color/colorTextSecondary" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>
