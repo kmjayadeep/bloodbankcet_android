@@ -69,6 +69,10 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         tvComments.setText(user.comments);
         if (user.donated > 0) {
             tvDonated.setText(format.format(new Date(user.donated)));
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, -3);
+            if (user.donated > cal.getTimeInMillis())
+                tvDonated.setTextColor(getResources().getColor(R.color.colorPrimary));
         } else
             tvDonated.setText("Never");
         fab.setOnClickListener(this);

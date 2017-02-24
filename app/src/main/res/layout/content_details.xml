@@ -121,7 +121,8 @@
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/tv_donated"
         android:paddingLeft="10dp"
-        android:text="20-02-2016" />
+        android:text="20-02-2016"
+        android:textColor="@color/colorAccent" />
 
     <TextView
         android:id="@+id/tv_donated"

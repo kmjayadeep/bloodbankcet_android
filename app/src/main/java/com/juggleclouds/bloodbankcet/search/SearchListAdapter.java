@@ -1,6 +1,7 @@
 package com.juggleclouds.bloodbankcet.search;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import com.juggleclouds.bloodbankcet.R;
 import com.juggleclouds.bloodbankcet.classes.User;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -46,10 +49,21 @@ public class SearchListAdapter extends BaseAdapter {
         }
         User user = getItem(i);
         TextView tvName = (TextView) view.findViewById(R.id.name);
-        TextView tvComments = (TextView) view.findViewById(R.id.comments);
+        TextView tvDonated = (TextView) view.findViewById(R.id.donated);
         TextView tvDepartment = (TextView) view.findViewById(R.id.department);
         tvName.setText(user.name);
-        tvComments.setText(user.comments);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+        if (user.donated > 0) {
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, -3);
+            tvDonated.setText("Last Donated : " + dateFormat.format(user.donated));
+            if (user.donated < cal.getTimeInMillis())
+                tvDonated.setTextColor(context.getResources().getColor(R.color.colorAccent));
+            else
+                tvDonated.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+        } else {
+            tvDonated.setText("");
+        }
         if (user.year != 0)
             tvDepartment.setText(user.department + " " + user.year);
         else
