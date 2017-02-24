@@ -1,13 +1,12 @@
 package com.juggleclouds.bloodbankcet.search;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,14 +16,18 @@ import android.widget.Toast;
 import com.juggleclouds.bloodbankcet.R;
 import com.juggleclouds.bloodbankcet.classes.User;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-public class DetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class DetailsActivity extends AppCompatActivity implements View.OnClickListener, com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener {
 
     User user;
     TextView tvName, tvBloodGroup, tvAddress, tvStation, tvDept, tvMobile, tvEmail, tvWeight, tvComments, tvDonated;
     TextInputLayout tilComments, tilDonated;
     Button bSave;
+    Calendar calDonated;
+    SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +66,27 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         tvWeight.setText(user.weight + " Kg");
         tvComments.setText(user.comments);
         if (user.donated > 0) {
-            String date = new Date(user.donated).toString();
-            tvDonated.setText(date);
+            tvDonated.setText(format.format(new Date(user.donated)));
         } else
             tvDonated.setText("Never");
         fab.setOnClickListener(this);
         bSave.setOnClickListener(this);
+        tilDonated.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) return;
+                Calendar now = Calendar.getInstance();
+                com.wdullaer.materialdatetimepicker.date.DatePickerDialog dpd = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
+                        DetailsActivity.this,
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.setMaxDate(Calendar.getInstance());
+                dpd.show(getFragmentManager(), "datepicker");
+            }
+        });
+        tilDonated.getEditText().setKeyListener(null);
     }
 
     @Override
@@ -85,9 +103,13 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 comments = tilComments.getEditText().getText().toString();
             Log.i("comments", comments);
             user.comments = comments;
-//            user.donated = put date here
+            if (calDonated != null)
+                user.donated = calDonated.getTimeInMillis();
+            Log.i("donated", user.donated + "");
             user.save();
             tvComments.setText(user.comments);
+            tvDonated.setText(format.format(new Date(user.donated)));
+            tilComments.getEditText().requestFocus();
             tilComments.setVisibility(View.GONE);
             tilDonated.setVisibility(View.GONE);
             bSave.setVisibility(View.GONE);
@@ -98,6 +120,9 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 tilDonated.setVisibility(View.VISIBLE);
                 bSave.setVisibility(View.VISIBLE);
                 tilComments.getEditText().setText(user.comments);
+                if (user.donated > 0)
+                    tilDonated.getEditText().setText(format.format(new Date(user.donated)));
+                calDonated = null;
             } else {
                 tilComments.setVisibility(View.GONE);
                 tilDonated.setVisibility(View.GONE);
@@ -110,5 +135,16 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                     tvDonated.setText("Never");
             }
         }
+    }
+
+    @Override
+    public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        Log.i("date", dayOfMonth + "");
+        calDonated = Calendar.getInstance();
+        calDonated.set(Calendar.YEAR, year);
+        calDonated.set(Calendar.MONTH, monthOfYear);
+        calDonated.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        tilDonated.getEditText().setText(format.format(calDonated.getTime()));
+        tilComments.getEditText().requestFocus();
     }
 }
