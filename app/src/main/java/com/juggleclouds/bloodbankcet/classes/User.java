@@ -4,11 +4,13 @@ import com.orm.SugarRecord;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.jar.Pack200;
 
 /**
  * Created by jayadeep on 10/22/16.
  */
 public class User extends SugarRecord implements Serializable {
+    public long id;
     public String name;
     public int year; //joining year. Set 0 for not applicable
     public String department;
@@ -26,4 +28,5 @@ public class User extends SugarRecord implements Serializable {
     public String toString() {
         return name;
     }
+
 }
