@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.juggleclouds.bloodbankcet.account.RegisterActivity;
 import com.juggleclouds.bloodbankcet.classes.User;
+import com.juggleclouds.bloodbankcet.duty.DutyActivity;
 import com.juggleclouds.bloodbankcet.search.SearchActivity;
 import com.juggleclouds.bloodbankcet.search.SearchDialog;
 import com.juggleclouds.bloodbankcet.utils.FetchDataTask;
@@ -34,8 +35,8 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SearchDialog.ActionListener, FetchDataTask.OnTaskFinishedListener, PushDataTask.OnTaskFinishedListener {
 
-    TextView tvCount, tvUpSync, tvDownSync;
-    Button bUpSync, bDownSync, bRegister;
+    TextView tvCount, tvUpSync, tvDownSync, tvDuty;
+    Button bUpSync, bDownSync, bRegister, bDuty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity
         bUpSync = (Button) findViewById(R.id.upsync);
         bDownSync = (Button) findViewById(R.id.downsync);
         bRegister = (Button) findViewById(R.id.newuser);
+        tvDuty = (TextView) findViewById(R.id.todays_duty);
+        bDuty = (Button) findViewById(R.id.duty);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity
         bRegister.setOnClickListener(buttonListener);
         bUpSync.setOnClickListener(buttonListener);
         bDownSync.setOnClickListener(buttonListener);
+        bDuty.setOnClickListener(buttonListener);
     }
 
     void updateValues() {
@@ -134,20 +138,6 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -194,6 +184,8 @@ public class MainActivity extends AppCompatActivity
                 new PushDataTask(MainActivity.this).execute();
             } else if (view.getId() == R.id.downsync) {
                 new FetchDataTask(MainActivity.this).execute();
+            } else if (view.getId() == R.id.duty) {
+                startActivity(new Intent(MainActivity.this, DutyActivity.class));
             }
         }
     }
