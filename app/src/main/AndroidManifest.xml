@@ -39,6 +39,10 @@
         <activity
             android:name=".account.RegisterActivity"
             android:label="Register" />
+        <activity
+            android:name=".duty.DutyActivity"
+            android:label="@string/title_activity_duty"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
