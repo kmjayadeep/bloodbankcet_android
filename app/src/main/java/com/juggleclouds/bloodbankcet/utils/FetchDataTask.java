@@ -80,7 +80,8 @@ public class FetchDataTask {
             User.deleteAll(User.class);
             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                 User user = dataSnapshot1.getValue(User.class);
-                user.setId(user.id);
+                if (user.id > 0)
+                    user.setId(user.id);
                 Log.i("got", user.name + " " + user.getId());
                 user.save();
             }

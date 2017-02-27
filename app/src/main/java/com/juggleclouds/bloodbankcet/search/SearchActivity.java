@@ -36,6 +36,12 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         User user = userList.get(i);
         Log.i("Selected", user.toString());

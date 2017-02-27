@@ -39,8 +39,10 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        user = (User) getIntent().getSerializableExtra("user");
-        user.setId(getIntent().getLongExtra("user_id", 0));
+//        user = (User) getIntent().getSerializableExtra("user");
+//        user.setId(getIntent().getLongExtra("user_id", 0));
+        long userId = getIntent().getLongExtra("user_id", 0);
+        user = User.findById(User.class, userId);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         tvName = (TextView) findViewById(R.id.name);
         tvStation = (TextView) findViewById(R.id.station);
@@ -116,34 +118,28 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             Log.i("donated", user.donated + "");
             user.save();
             tvComments.setText(user.comments);
-            tvDonated.setText(format.format(new Date(user.donated)));
+            if (user.donated > 0) {
+                tvDonated.setText(format.format(new Date(user.donated)));
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.MONTH, -3);
+                if (user.donated > cal.getTimeInMillis())
+                    tvDonated.setTextColor(getResources().getColor(R.color.colorPrimary));
+                else
+                    tvDonated.setTextColor(getResources().getColor(R.color.colorAccent));
+            } else
+                tvDonated.setText("Never");
             tilComments.getEditText().requestFocus();
-//            tilComments.setVisibility(View.GONE);
-//            tilDonated.setVisibility(View.GONE);
             editLayout.setVisibility(View.GONE);
-//            bSave.setVisibility(View.GONE);
             Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
         } else if (view.getId() == R.id.fab) {
             if (editLayout.getVisibility() == View.GONE) {
-//                tilComments.setVisibility(View.VISIBLE);
-//                tilDonated.setVisibility(View.VISIBLE);
                 editLayout.setVisibility(View.VISIBLE);
-//                bSave.setVisibility(View.VISIBLE);
                 tilComments.getEditText().setText(user.comments);
                 if (user.donated > 0)
                     tilDonated.getEditText().setText(format.format(new Date(user.donated)));
                 calDonated = null;
             } else {
-//                tilComments.setVisibility(View.GONE);
-//                tilDonated.setVisibility(View.GONE);
                 editLayout.setVisibility(View.GONE);
-//                bSave.setVisibility(View.GONE);
-                tvComments.setText(user.comments);
-                if (user.donated > 0) {
-                    String date = new Date(user.donated).toString();
-                    tvDonated.setText(date);
-                } else
-                    tvDonated.setText("Never");
             }
         }
     }
