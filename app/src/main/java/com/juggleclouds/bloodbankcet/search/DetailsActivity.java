@@ -1,6 +1,7 @@
 package com.juggleclouds.bloodbankcet.search;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.juggleclouds.bloodbankcet.Global;
 import com.juggleclouds.bloodbankcet.R;
 import com.juggleclouds.bloodbankcet.classes.User;
 
@@ -131,6 +133,9 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             tilComments.getEditText().requestFocus();
             editLayout.setVisibility(View.GONE);
             Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+            Intent result = new Intent();
+            result.putExtra("userId", user.getId());
+            setResult(Global.CODE_SAVE_USER, result);
         } else if (view.getId() == R.id.fab) {
             if (editLayout.getVisibility() == View.GONE) {
                 editLayout.setVisibility(View.VISIBLE);

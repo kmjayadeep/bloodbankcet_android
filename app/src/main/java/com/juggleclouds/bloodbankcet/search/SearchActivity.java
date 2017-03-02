@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.juggleclouds.bloodbankcet.Global;
 import com.juggleclouds.bloodbankcet.R;
 import com.juggleclouds.bloodbankcet.classes.User;
 import com.orm.query.Condition;
@@ -36,9 +37,12 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Global.REQUEST_CODE_SAVE_USER && resultCode == Global.CODE_SAVE_USER) {
+            long userId = data.getLongExtra("userId", 0);
+            Log.i("got id", userId + "");
+        }
     }
 
     @Override
@@ -48,7 +52,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         Intent intent = new Intent(this, DetailsActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("user_id", user.getId());
-        startActivity(intent);
+        startActivityForResult(intent, Global.REQUEST_CODE_SAVE_USER);
     }
 
     class SearchTask extends AsyncTask<Void, Void, List<User>> {
