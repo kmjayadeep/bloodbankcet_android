@@ -7,4 +7,6 @@ public class Global {
     public static final String sharedPreferences = "data";
     public static final int CODE_SAVE_USER = 100;
     public static final int REQUEST_CODE_SAVE_USER = 100;
+    public static final int REQUEST_CODE_ADD_DUTY = 101;
+    public static final int ADD_DUTY = 101;
 }

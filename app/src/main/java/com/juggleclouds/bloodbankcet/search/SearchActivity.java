@@ -40,8 +40,10 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Global.REQUEST_CODE_SAVE_USER && resultCode == Global.CODE_SAVE_USER) {
-            long userId = data.getLongExtra("userId", 0);
-            Log.i("got id", userId + "");
+            int userIndex = data.getIntExtra("userIndex", 0);
+            Log.i("got id", userIndex + "");
+            SearchListAdapter adapter = (SearchListAdapter) lvSearchResult.getAdapter();
+            adapter.updateItem(userIndex);
         }
     }
 
@@ -52,6 +54,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         Intent intent = new Intent(this, DetailsActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("user_id", user.getId());
+        intent.putExtra("user_index", i);
         startActivityForResult(intent, Global.REQUEST_CODE_SAVE_USER);
     }
 

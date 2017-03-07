@@ -2,6 +2,7 @@ package com.juggleclouds.bloodbankcet.search;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -69,5 +70,13 @@ public class SearchListAdapter extends BaseAdapter {
         else
             tvDepartment.setText("");
         return view;
+    }
+
+    public void updateItem(int userIndex) {
+        long userId = getItem(userIndex).id;
+        Log.i("updating", userId + "");
+        User user = User.findById(User.class, userId);
+        userList.set((int) userIndex, user);
+        notifyDataSetChanged();
     }
 }

@@ -1,5 +1,6 @@
 package com.juggleclouds.bloodbankcet.duty;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,7 +10,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.juggleclouds.bloodbankcet.Global;
 import com.juggleclouds.bloodbankcet.R;
+import com.juggleclouds.bloodbankcet.classes.Duty;
+import com.juggleclouds.bloodbankcet.search.SearchListAdapter;
 
 public class DutyActivity extends AppCompatActivity {
 
@@ -26,16 +30,17 @@ public class DutyActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivityForResult(new Intent(DutyActivity.this, NewDutyActivity.class), Global.REQUEST_CODE_ADD_DUTY);
             }
         });
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home)
-            onBackPressed();
-        return super.onOptionsItemSelected(item);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Global.REQUEST_CODE_ADD_DUTY && resultCode == Global.ADD_DUTY) {
+            long dutyId = data.getLongExtra("dutyId", 0);
+            Log.i("got id", dutyId + "");
+        }
     }
 }

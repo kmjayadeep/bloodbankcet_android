@@ -42,7 +42,10 @@
         <activity
             android:name=".duty.DutyActivity"
             android:label="Duty"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".duty.NewDutyActivity"
+            android:label="New Duty" />
     </application>
 
 </manifest>

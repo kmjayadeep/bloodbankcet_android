@@ -134,7 +134,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             editLayout.setVisibility(View.GONE);
             Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
             Intent result = new Intent();
-            result.putExtra("userId", user.getId());
+            result.putExtra("userIndex", getIntent().getIntExtra("user_index", 0));
             setResult(Global.CODE_SAVE_USER, result);
         } else if (view.getId() == R.id.fab) {
             if (editLayout.getVisibility() == View.GONE) {
